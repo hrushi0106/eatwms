@@ -1,0 +1,63 @@
+services:
+  # ── Backend API (Node.js Web Service) ─────────────────────────────────────
+  - type: web
+    name: eatwms-backend
+    runtime: node
+    rootDir: backend
+    buildCommand: npm install && npm run build
+    startCommand: npm run start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 4000
+      - key: DATABASE_URL
+        sync: false          # Set manually in Render dashboard
+      - key: JWT_SECRET
+        generateValue: true  # Render auto-generates a secure value
+      - key: REFRESH_TOKEN_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 8h
+      - key: REFRESH_TOKEN_EXPIRES_IN
+        value: 7d
+      - key: BCRYPT_ROUNDS
+        value: 12
+      - key: STORAGE_PROVIDER
+        value: local
+      - key: UPLOAD_DIR
+        value: /tmp/uploads
+      - key: LOG_LEVEL
+        value: warn
+      - key: RATE_LIMIT_WINDOW_MS
+        value: 900000
+      - key: RATE_LIMIT_MAX
+        value: 100
+      - key: LOGIN_RATE_LIMIT_MAX
+        value: 10
+      - key: DEFAULT_TIMEZONE
+        value: Asia/Kolkata
+      - key: MAX_FILE_SIZE_MB
+        value: 5
+      - key: FRONTEND_URL
+        sync: false          # Set to your Render frontend URL
+
+  # ── Frontend (Static Site) ─────────────────────────────────────────────────
+  - type: web
+    name: eatwms-frontend
+    runtime: static
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    headers:
+      - path: /*
+        name: Cache-Control
+        value: no-cache
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html  # SPA routing
+    envVars:
+      - key: VITE_API_URL
+        sync: false  # Set to: https://eatwms-backend.onrender.com/api
