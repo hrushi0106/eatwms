@@ -3,7 +3,7 @@ node_modules/
 frontend/node_modules/
 backend/node_modules/
 
-# Build outputs
+# Build outputs — Render builds these fresh
 frontend/dist/
 backend/dist/
 
