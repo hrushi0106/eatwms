@@ -1,11 +1,16 @@
 ﻿import type { Knex } from 'knex';
 
 export async function seed(knex: Knex): Promise<void> {
-  // Clear existing data (SQLite compatible)
+  // Clear existing data (works with both SQLite and PostgreSQL)
   await knex('system_settings').del();
   
-  // Reset auto-increment (SQLite compatible)
-  await knex.raw("DELETE FROM sqlite_sequence WHERE name='system_settings'");
+  // Reset auto-increment - handle both databases
+  const dbClient = knex.client.config.client;
+  if (dbClient === 'sqlite3') {
+    await knex.raw("DELETE FROM sqlite_sequence WHERE name='system_settings'");
+  } else if (dbClient === 'postgresql') {
+    await knex.raw("ALTER SEQUENCE system_settings_id_seq RESTART WITH 1");
+  }
   await knex('system_settings').insert([
     { setting_key: 'organization_name', setting_value: 'My Organization', description: 'Organization display name' },
     { setting_key: 'timezone', setting_value: 'Asia/Kolkata', description: 'Default display timezone' },

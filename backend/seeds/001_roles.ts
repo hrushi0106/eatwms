@@ -1,11 +1,16 @@
 ﻿import type { Knex } from 'knex';
 
 export async function seed(knex: Knex): Promise<void> {
-  // Clear existing data (SQLite compatible)
+  // Clear existing data (works with both SQLite and PostgreSQL)
   await knex('roles').del();
   
-  // Reset auto-increment (SQLite compatible)
-  await knex.raw("DELETE FROM sqlite_sequence WHERE name='roles'");
+  // Reset auto-increment - handle both databases
+  const dbClient = knex.client.config.client;
+  if (dbClient === 'sqlite3') {
+    await knex.raw("DELETE FROM sqlite_sequence WHERE name='roles'");
+  } else if (dbClient === 'postgresql') {
+    await knex.raw("ALTER SEQUENCE roles_id_seq RESTART WITH 1");
+  }
   
   await knex('roles').insert([
     { id: 1, name: 'ADMIN', description: 'Full system access' },

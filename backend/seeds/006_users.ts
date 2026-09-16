@@ -3,16 +3,26 @@ import bcrypt from 'bcryptjs';
 
 export async function seed(knex: Knex): Promise<void> {
   // Remove FK-dependent rows first
-  // Clear existing data (SQLite compatible)
+  // Clear existing data (works with both SQLite and PostgreSQL)
   await knex('leave_balances').del();
   
-  // Reset auto-increment (SQLite compatible)
-  await knex.raw("DELETE FROM sqlite_sequence WHERE name='leave_balances'");
-  // Clear existing data (SQLite compatible)
+  // Reset auto-increment - handle both databases
+  const dbClient = knex.client.config.client;
+  if (dbClient === 'sqlite3') {
+    await knex.raw("DELETE FROM sqlite_sequence WHERE name='leave_balances'");
+  } else if (dbClient === 'postgresql') {
+    await knex.raw("ALTER SEQUENCE leave_balances_id_seq RESTART WITH 1");
+  }
+  // Clear existing data (works with both SQLite and PostgreSQL)
   await knex('users').del();
   
-  // Reset auto-increment (SQLite compatible)
-  await knex.raw("DELETE FROM sqlite_sequence WHERE name='users'");
+  // Reset auto-increment - handle both databases
+  const dbClient = knex.client.config.client;
+  if (dbClient === 'sqlite3') {
+    await knex.raw("DELETE FROM sqlite_sequence WHERE name='users'");
+  } else if (dbClient === 'postgresql') {
+    await knex.raw("ALTER SEQUENCE users_id_seq RESTART WITH 1");
+  }
 
   const rounds = 10; // lower for seed speed
   const adminHash = await bcrypt.hash('Admin@123', rounds);

@@ -1,11 +1,16 @@
 ﻿import type { Knex } from 'knex';
 
 export async function seed(knex: Knex): Promise<void> {
-  // Clear existing data (SQLite compatible)
+  // Clear existing data (works with both SQLite and PostgreSQL)
   await knex('leave_types').del();
   
-  // Reset auto-increment (SQLite compatible)
-  await knex.raw("DELETE FROM sqlite_sequence WHERE name='leave_types'");
+  // Reset auto-increment - handle both databases
+  const dbClient = knex.client.config.client;
+  if (dbClient === 'sqlite3') {
+    await knex.raw("DELETE FROM sqlite_sequence WHERE name='leave_types'");
+  } else if (dbClient === 'postgresql') {
+    await knex.raw("ALTER SEQUENCE leave_types_id_seq RESTART WITH 1");
+  }
   await knex('leave_types').insert([
     { id: 1, name: 'Annual Leave', description: 'Paid annual vacation leave', annual_limit: 21, is_paid: true },
     { id: 2, name: 'Sick Leave', description: 'Medical sick leave', annual_limit: 10, is_paid: true },
