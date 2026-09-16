@@ -1,7 +1,11 @@
 ﻿import type { Knex } from 'knex';
 
 export async function seed(knex: Knex): Promise<void> {
-  await knex.raw('TRUNCATE TABLE work_modes RESTART IDENTITY CASCADE');
+  // Clear existing data (SQLite compatible)
+  await knex('work_modes').del();
+  
+  // Reset auto-increment (SQLite compatible)
+  await knex.raw("DELETE FROM sqlite_sequence WHERE name='work_modes'");
   await knex('work_modes').insert([
     { id: 1, code: 'OFFICE', name: 'Office', description: 'Working from office premises' },
     { id: 2, code: 'WFH', name: 'Work From Home', description: 'Working remotely from home' },

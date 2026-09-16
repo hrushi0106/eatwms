@@ -1,7 +1,11 @@
 ﻿import type { Knex } from 'knex';
 
 export async function seed(knex: Knex): Promise<void> {
-  await knex.raw('TRUNCATE TABLE leave_types RESTART IDENTITY CASCADE');
+  // Clear existing data (SQLite compatible)
+  await knex('leave_types').del();
+  
+  // Reset auto-increment (SQLite compatible)
+  await knex.raw("DELETE FROM sqlite_sequence WHERE name='leave_types'");
   await knex('leave_types').insert([
     { id: 1, name: 'Annual Leave', description: 'Paid annual vacation leave', annual_limit: 21, is_paid: true },
     { id: 2, name: 'Sick Leave', description: 'Medical sick leave', annual_limit: 10, is_paid: true },

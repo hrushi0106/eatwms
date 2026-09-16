@@ -1,8 +1,16 @@
 ﻿import type { Knex } from 'knex';
 
 export async function seed(knex: Knex): Promise<void> {
-  await knex.raw('TRUNCATE TABLE tasks RESTART IDENTITY CASCADE');
-  await knex.raw('TRUNCATE TABLE projects RESTART IDENTITY CASCADE');
+  // Clear existing data (SQLite compatible)
+  await knex('tasks').del();
+  
+  // Reset auto-increment (SQLite compatible)
+  await knex.raw("DELETE FROM sqlite_sequence WHERE name='tasks'");
+  // Clear existing data (SQLite compatible)
+  await knex('projects').del();
+  
+  // Reset auto-increment (SQLite compatible)
+  await knex.raw("DELETE FROM sqlite_sequence WHERE name='projects'");
 
   await knex('projects').insert([
     {

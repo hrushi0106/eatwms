@@ -1,7 +1,12 @@
 ﻿import type { Knex } from 'knex';
 
 export async function seed(knex: Knex): Promise<void> {
-  await knex.raw('TRUNCATE TABLE departments RESTART IDENTITY CASCADE');
+  // Clear existing data (SQLite compatible)
+  await knex('departments').del();
+  
+  // Reset auto-increment (SQLite compatible)  
+  await knex.raw("DELETE FROM sqlite_sequence WHERE name='departments'");
+  
   await knex('departments').insert([
     { id: 1, name: 'Development', description: 'Software Development team' },
     { id: 2, name: 'Human Resources', description: 'HR & People team' },

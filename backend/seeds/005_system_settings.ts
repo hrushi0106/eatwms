@@ -1,7 +1,11 @@
 ﻿import type { Knex } from 'knex';
 
 export async function seed(knex: Knex): Promise<void> {
-  await knex.raw('TRUNCATE TABLE system_settings RESTART IDENTITY CASCADE');
+  // Clear existing data (SQLite compatible)
+  await knex('system_settings').del();
+  
+  // Reset auto-increment (SQLite compatible)
+  await knex.raw("DELETE FROM sqlite_sequence WHERE name='system_settings'");
   await knex('system_settings').insert([
     { setting_key: 'organization_name', setting_value: 'My Organization', description: 'Organization display name' },
     { setting_key: 'timezone', setting_value: 'Asia/Kolkata', description: 'Default display timezone' },

@@ -1,7 +1,11 @@
 ﻿import type { Knex } from 'knex';
 
 export async function seed(knex: Knex): Promise<void> {
-  await knex.raw('TRUNCATE TABLE leave_balances RESTART IDENTITY CASCADE');
+  // Clear existing data (SQLite compatible)
+  await knex('leave_balances').del();
+  
+  // Reset auto-increment (SQLite compatible)
+  await knex.raw("DELETE FROM sqlite_sequence WHERE name='leave_balances'");
 
   const year = 2026;
   const userIds = [1, 2, 3, 4, 5, 6];

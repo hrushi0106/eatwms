@@ -3,8 +3,16 @@ import bcrypt from 'bcryptjs';
 
 export async function seed(knex: Knex): Promise<void> {
   // Remove FK-dependent rows first
-  await knex.raw('TRUNCATE TABLE leave_balances RESTART IDENTITY CASCADE');
-  await knex.raw('TRUNCATE TABLE users RESTART IDENTITY CASCADE');
+  // Clear existing data (SQLite compatible)
+  await knex('leave_balances').del();
+  
+  // Reset auto-increment (SQLite compatible)
+  await knex.raw("DELETE FROM sqlite_sequence WHERE name='leave_balances'");
+  // Clear existing data (SQLite compatible)
+  await knex('users').del();
+  
+  // Reset auto-increment (SQLite compatible)
+  await knex.raw("DELETE FROM sqlite_sequence WHERE name='users'");
 
   const rounds = 10; // lower for seed speed
   const adminHash = await bcrypt.hash('Admin@123', rounds);
