@@ -61,7 +61,14 @@ This guide will help you deploy the Employee Attendance, Timesheet & Work Monito
    VITE_API_URL=https://your-backend-name.onrender.com/api
    ```
 
-4. **Deploy Frontend**
+4. **Important: Fix "Not Found" Error**
+   The `_redirects` file in `/public/` handles client-side routing.
+   If you still get "Not Found" errors, ensure:
+   - The `_redirects` file exists in your dist folder after build
+   - Content should be: `/*    /index.html   200`
+   - Render static sites automatically pick up this file
+
+5. **Deploy Frontend**
    - Click "Create Static Site"
    - Wait for deployment to complete
 
