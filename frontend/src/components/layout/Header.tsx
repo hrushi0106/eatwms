@@ -16,11 +16,11 @@ export default function Header({ onMenuClick, title }: HeaderProps) {
   const unreadCount = useNotificationStore((s) => s.unreadCount);
 
   return (
-    <header className="sticky top-0 z-20 bg-white border-b border-gray-200 h-16 flex items-center px-4 gap-4">
+    <header className="sticky top-0 z-20 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 h-16 flex items-center px-4 gap-4 transition-colors">
       {/* Mobile menu button */}
       <button
         onClick={onMenuClick}
-        className="lg:hidden p-2 rounded-lg text-gray-500 hover:bg-gray-100"
+        className="lg:hidden p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
         aria-label="Open menu"
       >
         <Bars3Icon className="h-5 w-5" />
@@ -28,7 +28,7 @@ export default function Header({ onMenuClick, title }: HeaderProps) {
 
       {/* Page title */}
       {title && (
-        <h1 className="text-lg font-semibold text-gray-900 hidden sm:block">{title}</h1>
+        <h1 className="text-lg font-semibold text-gray-900 dark:text-white hidden sm:block">{title}</h1>
       )}
 
       <div className="flex-1" />
@@ -38,7 +38,7 @@ export default function Header({ onMenuClick, title }: HeaderProps) {
         {/* Notifications */}
         <Link
           to="/notifications"
-          className="relative p-2 rounded-lg text-gray-500 hover:bg-gray-100 transition-colors"
+          className="relative p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
           aria-label="Notifications"
         >
           <BellIcon className="h-5 w-5" />
@@ -52,12 +52,12 @@ export default function Header({ onMenuClick, title }: HeaderProps) {
         {/* User */}
         <Link
           to="/profile"
-          className="flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-gray-100 transition-colors"
+          className="flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
         >
-          <div className="w-7 h-7 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs font-bold">
+          <div className="w-7 h-7 rounded-full bg-blue-600 dark:bg-blue-500 text-white flex items-center justify-center text-xs font-bold">
             {user?.first_name?.[0]}{user?.last_name?.[0]}
           </div>
-          <span className="text-sm font-medium text-gray-700 hidden sm:block">
+          <span className="text-sm font-medium text-gray-700 dark:text-gray-300 hidden sm:block">
             {user?.first_name} {user?.last_name}
           </span>
         </Link>

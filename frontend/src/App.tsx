@@ -1,6 +1,7 @@
 import React, { Suspense, lazy } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
+import { ThemeProvider } from './contexts/ThemeContext';
 import ProtectedRoute from './components/common/ProtectedRoute';
 import AppLayout from './components/layout/AppLayout';
 import LoadingSpinner from './components/common/LoadingSpinner';
@@ -45,9 +46,10 @@ const AuditLogsPage = lazy(() => import('./pages/admin/AuditLogsPage'));
 
 function App() {
   return (
-    <AuthProvider>
-      <Suspense fallback={<LoadingSpinner fullPage />}>
-        <Routes>
+    <ThemeProvider>
+      <AuthProvider>
+        <Suspense fallback={<LoadingSpinner fullPage />}>
+          <Routes>
           {/* Public routes */}
           <Route path="/login" element={<LoginPage />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
@@ -182,6 +184,7 @@ function App() {
         </Routes>
       </Suspense>
     </AuthProvider>
+    </ThemeProvider>
   );
 }
 

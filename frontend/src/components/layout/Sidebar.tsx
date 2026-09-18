@@ -10,6 +10,7 @@ import {
 import { useAuth } from '../../contexts/AuthContext';
 import { Role } from '../../types';
 import Logo from '../ui/Logo';
+import ThemeToggle from '../ui/ThemeToggle';
 
 interface NavItem {
   label: string;
@@ -85,29 +86,29 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
   const navItems = getNavItems(user?.role as Role || 'EMPLOYEE');
 
   const roleColors: Record<Role, string> = {
-    ADMIN: 'bg-purple-100 text-purple-800',
-    MANAGER: 'bg-blue-100 text-blue-800',
-    TEAM_LEAD: 'bg-indigo-100 text-indigo-800',
-    EMPLOYEE: 'bg-green-100 text-green-800',
+    ADMIN: 'bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300',
+    MANAGER: 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300',
+    TEAM_LEAD: 'bg-indigo-100 dark:bg-indigo-900/30 text-indigo-800 dark:text-indigo-300',
+    EMPLOYEE: 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300',
   };
-  const roleColor = roleColors[user?.role as Role || 'EMPLOYEE'] || 'bg-gray-100 text-gray-700';
+  const roleColor = roleColors[user?.role as Role || 'EMPLOYEE'] || 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300';
 
   const SidebarContent = () => (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full bg-white dark:bg-gray-900 transition-colors">
       {/* Logo */}
-      <div className="px-5 py-4 border-b border-gray-100">
+      <div className="px-5 py-4 border-b border-gray-100 dark:border-gray-800">
         <Logo variant="full" size="md" className="h-10" />
       </div>
 
       {/* User info */}
       {user && (
-        <div className="px-4 py-4 border-b border-gray-100">
+        <div className="px-4 py-4 border-b border-gray-100 dark:border-gray-800">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-full bg-blue-600 text-white flex items-center justify-center text-sm font-bold flex-shrink-0">
+            <div className="w-9 h-9 rounded-full bg-blue-600 dark:bg-blue-500 text-white flex items-center justify-center text-sm font-bold flex-shrink-0">
               {user.first_name[0]}{user.last_name[0]}
             </div>
             <div className="min-w-0">
-              <p className="text-sm font-semibold text-gray-900 truncate">
+              <p className="text-sm font-semibold text-gray-900 dark:text-white truncate">
                 {user.first_name} {user.last_name}
               </p>
               <span className={`text-xs px-1.5 py-0.5 rounded font-medium ${roleColor}`}>
@@ -129,8 +130,8 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
                 className={({ isActive }) =>
                   `flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all ${
                     isActive
-                      ? 'bg-blue-50 text-blue-700'
-                      : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+                      ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300'
+                      : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-200'
                   }`
                 }
               >
@@ -142,11 +143,14 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
         </ul>
       </nav>
 
-      {/* Logout */}
-      <div className="px-3 py-3 border-t border-gray-100">
+      {/* Theme toggle and Logout */}
+      <div className="px-3 py-3 border-t border-gray-100 dark:border-gray-800 space-y-2">
+        <div className="px-3">
+          <ThemeToggle variant="minimal" size="md" showLabel className="w-full justify-start" />
+        </div>
         <button
           onClick={logout}
-          className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-red-50 hover:text-red-600 w-full transition-colors"
+          className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-600 dark:hover:text-red-400 w-full transition-colors"
         >
           <ArrowRightOnRectangleIcon className="h-5 w-5" />
           <span>Sign Out</span>
@@ -166,13 +170,13 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
       )}
 
       {/* Desktop sidebar */}
-      <aside className="hidden lg:flex flex-col w-64 bg-white border-r border-gray-200 fixed h-full z-30">
+      <aside className="hidden lg:flex flex-col w-64 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 fixed h-full z-30 transition-colors">
         <SidebarContent />
       </aside>
 
       {/* Mobile sidebar */}
       <aside
-        className={`fixed top-0 left-0 h-full w-64 bg-white border-r border-gray-200 z-50 transform transition-transform duration-200 lg:hidden ${
+        className={`fixed top-0 left-0 h-full w-64 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 z-50 transform transition-transform duration-200 lg:hidden ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
