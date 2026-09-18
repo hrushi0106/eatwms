@@ -9,6 +9,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { useAuth } from '../../contexts/AuthContext';
 import { Role } from '../../types';
+import Logo from '../ui/Logo';
 
 interface NavItem {
   label: string;
@@ -95,11 +96,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
     <div className="flex flex-col h-full">
       {/* Logo */}
       <div className="px-5 py-4 border-b border-gray-100">
-        <img
-          src="/logo.svg"
-          alt="EvoluXion Software Solutions"
-          className="h-10 object-contain"
-        />
+        <Logo variant="full" size="md" className="h-10" />
       </div>
 
       {/* User info */}

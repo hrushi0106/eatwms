@@ -1,70 +1,58 @@
-﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 180" width="500" height="180">
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 120" width="480" height="120">
   <defs>
-    <linearGradient id="eGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#00c6ff;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#0057b8;stop-opacity:1" />
+    <!-- Premium gradient for the icon -->
+    <linearGradient id="iconGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366f1"/>
+      <stop offset="50%" style="stop-color:#8b5cf6"/>
+      <stop offset="100%" style="stop-color:#06b6d4"/>
     </linearGradient>
-    <linearGradient id="triGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#39e600;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#00c6ff;stop-opacity:1" />
+    
+    <!-- Accent gradient -->
+    <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#10b981"/>
+      <stop offset="100%" style="stop-color:#06b6d4"/>
     </linearGradient>
+    
+    <!-- Shadow effect -->
+    <filter id="softShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.15"/>
+    </filter>
   </defs>
 
-  <!-- Outer geometric ring fragments -->
-  <!-- Top-left triangles (green) -->
-  <polygon points="55,18 72,8 68,28" fill="#39e600" opacity="0.9"/>
-  <polygon points="72,8 92,4 85,20" fill="#2dcc00" opacity="0.85"/>
-  <polygon points="92,4 108,10 98,22" fill="#00d4aa" opacity="0.8"/>
-  <!-- Top-right dot -->
-  <circle cx="118" cy="32" r="4" fill="#39e600"/>
-  <!-- Right side fragments (blue) -->
-  <polygon points="128,50 140,42 138,62" fill="#00aadd" opacity="0.7"/>
-  <polygon points="138,75 148,65 145,85" fill="#0077cc" opacity="0.8"/>
-  <polygon points="140,100 148,90 145,112" fill="#0055bb" opacity="0.85"/>
-  <!-- Bottom fragments -->
-  <polygon points="120,128 132,120 128,138" fill="#0044aa" opacity="0.9"/>
-  <polygon points="100,145 115,140 108,155" fill="#0066bb" opacity="0.8"/>
-  <polygon points="78,155 95,150 88,165" fill="#0099cc" opacity="0.75"/>
-  <polygon points="55,158 72,155 65,168" fill="#00aadd" opacity="0.7"/>
-  <!-- Left dots -->
-  <circle cx="35" cy="145" r="4" fill="#0066bb"/>
-  <circle cx="22" cy="128" r="3.5" fill="#0055aa"/>
-  <circle cx="15" cy="108" r="3" fill="#0044aa"/>
-  <!-- Left side fragments -->
-  <polygon points="18,88 28,78 26,98" fill="#003399" opacity="0.9"/>
-  <polygon points="20,65 32,58 28,75" fill="#0044aa" opacity="0.85"/>
-  <polygon points="28,45 40,38 36,55" fill="#0066bb" opacity="0.8"/>
+  <!-- Modern icon container with rounded corners -->
+  <rect x="8" y="8" width="64" height="64" rx="16" ry="16" 
+        fill="url(#iconGradient)" filter="url(#softShadow)"/>
+  
+  <!-- Stylized "E" with modern geometric design -->
+  <g fill="white">
+    <!-- Main E structure -->
+    <rect x="22" y="24" width="6" height="32" rx="1"/>
+    <rect x="22" y="24" width="20" height="6" rx="1"/>
+    <rect x="22" y="37" width="16" height="5" rx="1"/>
+    <rect x="22" y="50" width="20" height="6" rx="1"/>
+    
+    <!-- Modern accent dots -->
+    <circle cx="46" cy="27" r="2" fill="#10b981"/>
+    <circle cx="42" cy="39.5" r="1.5" fill="#06b6d4"/>
+    <circle cx="46" cy="53" r="2" fill="#10b981"/>
+  </g>
 
-  <!-- Large E letterform -->
-  <text x="38" y="140" 
-        font-family="Arial Black, sans-serif" 
-        font-weight="900" 
-        font-size="115" 
-        fill="url(#eGrad)"
-        opacity="0.95">E</text>
+  <!-- Company Name: EvoluXion -->
+  <g font-family="system-ui, -apple-system, sans-serif">
+    <!-- "Evolu" -->
+    <text x="88" y="45" font-weight="700" font-size="32" fill="#1f2937" letter-spacing="-0.5px">Evolu</text>
+    <!-- "X" with gradient -->
+    <text x="205" y="45" font-weight="800" font-size="32" fill="url(#accentGradient)" letter-spacing="-0.5px">X</text>
+    <!-- "ion" -->
+    <text x="230" y="45" font-weight="700" font-size="32" fill="#1f2937" letter-spacing="-0.5px">ion</text>
+  </g>
 
-  <!-- Company name: EvoluXion -->
-  <text x="170" y="95" 
-        font-family="Arial, Helvetica, sans-serif" 
-        font-weight="700" 
-        font-size="72" 
-        fill="#2d3748">Evolu</text>
-  <text x="380" y="95" 
-        font-family="Arial, Helvetica, sans-serif" 
-        font-weight="700" 
-        font-size="72" 
-        fill="#39e600">X</text>
-  <text x="415" y="95" 
-        font-family="Arial, Helvetica, sans-serif" 
-        font-weight="700" 
-        font-size="72" 
-        fill="#2d3748">ion</text>
+  <!-- Professional tagline -->
+  <text x="88" y="62" font-family="system-ui, -apple-system, sans-serif" 
+        font-weight="500" font-size="14" fill="#6b7280" letter-spacing="2px">
+    WORKFORCE SOLUTIONS
+  </text>
 
-  <!-- Subtitle: SOFTWARE SOLUTIONS -->
-  <text x="172" y="130" 
-        font-family="Arial, Helvetica, sans-serif" 
-        font-weight="500" 
-        font-size="26" 
-        letter-spacing="4"
-        fill="#4a5568">SOFTWARE SOLUTIONS</text>
+  <!-- Subtle accent line -->
+  <rect x="88" y="70" width="60" height="2" rx="1" fill="url(#accentGradient)" opacity="0.6"/>
 </svg>

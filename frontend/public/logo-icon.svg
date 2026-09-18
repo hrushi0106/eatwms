@@ -1,25 +1,33 @@
-﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="160" height="160">
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="80" height="80">
   <defs>
-    <linearGradient id="eGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#00c6ff"/>
-      <stop offset="100%" style="stop-color:#0057b8"/>
+    <!-- Premium gradient for the icon -->
+    <linearGradient id="iconGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366f1"/>
+      <stop offset="50%" style="stop-color:#8b5cf6"/>
+      <stop offset="100%" style="stop-color:#06b6d4"/>
     </linearGradient>
+    
+    <!-- Shadow effect -->
+    <filter id="softShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.15"/>
+    </filter>
   </defs>
-  <polygon points="55,10 75,2 68,22" fill="#39e600" opacity="0.9"/>
-  <polygon points="75,2 98,5 90,20" fill="#2dcc00" opacity="0.85"/>
-  <polygon points="98,5 118,14 105,26" fill="#00d4aa" opacity="0.8"/>
-  <circle cx="128" cy="38" r="5" fill="#39e600"/>
-  <polygon points="140,58 152,48 148,68" fill="#00aadd" opacity="0.7"/>
-  <polygon points="148,82 158,70 154,92" fill="#0077cc" opacity="0.8"/>
-  <polygon points="150,108 158,96 154,118" fill="#0055bb" opacity="0.85"/>
-  <polygon points="135,132 148,124 142,142" fill="#0044aa" opacity="0.9"/>
-  <polygon points="112,150 128,144 120,158" fill="#0066bb" opacity="0.8"/>
-  <polygon points="85,158 102,154 95,166" fill="#0099cc" opacity="0.75"/>
-  <circle cx="42" cy="148" r="5" fill="#0066bb"/>
-  <circle cx="25" cy="132" r="4" fill="#0055aa"/>
-  <circle cx="14" cy="112" r="3.5" fill="#0044aa"/>
-  <polygon points="14,90 26,78 22,100" fill="#003399" opacity="0.9"/>
-  <polygon points="18,65 30,55 26,75" fill="#0044aa" opacity="0.85"/>
-  <polygon points="28,40 42,32 37,52" fill="#0066bb" opacity="0.8"/>
-  <text x="22" y="138" font-family="Arial Black,sans-serif" font-weight="900" font-size="110" fill="url(#eGrad)">E</text>
+
+  <!-- Modern rounded container -->
+  <rect x="4" y="4" width="72" height="72" rx="18" ry="18" 
+        fill="url(#iconGradient)" filter="url(#softShadow)"/>
+  
+  <!-- Stylized "E" with modern design -->
+  <g fill="white">
+    <!-- Main E structure -->
+    <rect x="20" y="22" width="7" height="36" rx="1.5"/>
+    <rect x="20" y="22" width="24" height="7" rx="1.5"/>
+    <rect x="20" y="36.5" width="18" height="6" rx="1.5"/>
+    <rect x="20" y="51" width="24" height="7" rx="1.5"/>
+    
+    <!-- Modern accent dots -->
+    <circle cx="48" cy="25.5" r="2.5" fill="#10b981"/>
+    <circle cx="42" cy="39.5" r="2" fill="#06b6d4"/>
+    <circle cx="48" cy="54.5" r="2.5" fill="#10b981"/>
+  </g>
 </svg>

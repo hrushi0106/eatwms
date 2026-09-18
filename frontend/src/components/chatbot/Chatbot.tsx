@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { useChatbotStore } from '../../stores/chatbotStore';
 import { chatbotApi, ChatMessage } from '../../api/chatbot.api';
 import { useAuth } from '../../contexts/AuthContext';
+import Logo from '../ui/Logo';
 import {
   XMarkIcon,
   PaperAirplaneIcon,
@@ -173,7 +174,7 @@ export default function Chatbot() {
         >
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center overflow-hidden">
-              <img src="/logo-icon.svg" alt="EvoluXion" className="w-7 h-7 object-contain" />
+              <Logo variant="icon" size="sm" className="w-6 h-6" />
             </div>
             <div>
               <p className="text-white font-semibold text-sm leading-tight">WorkMonitor Assistant</p>
@@ -205,7 +206,7 @@ export default function Chatbot() {
         <div className="flex-1 overflow-y-auto bg-gray-50 px-4 py-3 space-y-3">
           {messages.length === 0 && !isTyping && (
             <div className="flex flex-col items-center justify-center h-full gap-3 text-center">
-              <img src="/logo-icon.svg" alt="EvoluXion" className="w-14 h-14 object-contain" />
+              <Logo variant="icon" size="lg" className="w-14 h-14" />
               <p className="text-sm font-medium text-gray-700">Hi, {user?.first_name}! 👋</p>
               <p className="text-xs text-gray-400">Ask me about your attendance, tasks, leave balance, and more.</p>
             </div>

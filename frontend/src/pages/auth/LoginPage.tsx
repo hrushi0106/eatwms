@@ -6,6 +6,7 @@ import { z } from 'zod';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import { useAuth } from '../../contexts/AuthContext';
 import toast from 'react-hot-toast';
+import Logo from '../../components/ui/Logo';
 
 const schema = z.object({
   email: z.string().email('Enter a valid email address'),
@@ -44,11 +45,7 @@ export default function LoginPage() {
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
-          <img
-            src="/logo.svg"
-            alt="EvoluXion Software Solutions"
-            className="h-16 mx-auto mb-3 object-contain"
-          />
+          <Logo variant="full" size="lg" className="mx-auto mb-3" />
           <p className="text-gray-500 mt-1 text-sm">Employee Attendance & Timesheet System</p>
         </div>
 
