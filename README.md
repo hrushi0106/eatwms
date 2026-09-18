@@ -496,6 +496,62 @@ GET /health/db  Database connection check
 
 ---
 
+## Deployment
+
+### Production Deployment on Render
+
+For complete deployment instructions, see [DEPLOYMENT.md](./DEPLOYMENT.md) and [PRODUCTION_CHECKLIST.md](./PRODUCTION_CHECKLIST.md).
+
+#### Quick Deploy Steps:
+
+1. **Push to GitHub**
+```bash
+git push origin main
+```
+
+2. **Deploy Backend**
+   - Render Dashboard → New Web Service
+   - Connect GitHub repo, Root Directory: `backend`
+   - Build Command: `npm run render-build`
+   - Start Command: `npm run render-start` 
+   - Add environment variables from `.env.render`
+
+3. **Deploy Frontend**
+   - Render Dashboard → New Static Site
+   - Same repo, Root Directory: `frontend`
+   - Build Command: `npm ci && npm run build`
+   - Publish Directory: `dist`
+   - Add `VITE_API_URL` environment variable
+
+4. **Verify Deployment**
+```bash
+node verify-deployment.js https://your-frontend.onrender.com https://your-backend.onrender.com
+```
+
+#### Environment Configuration
+
+Copy environment variables from:
+- Backend: `backend/.env.render`
+- Frontend: `frontend/.env.example`
+
+**Important**: Change JWT secrets and default passwords before production use!
+
+### Local Development (Quick Start)
+
+```bash
+# Install dependencies and start both servers
+node start-dev.js
+
+# Or manually:
+# Terminal 1 (Backend)
+cd backend && npm run dev
+
+# Terminal 2 (Frontend)  
+cd frontend && npm run dev
+```
+
+---
+
 ## License
 
 Private — Internal use only.

@@ -6,45 +6,54 @@ WORKDIR /app
 COPY package*.json ./
 COPY tsconfig.json ./
 
-# Install dependencies
-RUN npm ci --include=dev
+# Install dependencies including devDependencies for build
+RUN npm ci --include=dev --no-audit --no-fund
 
-# Copy source
+# Copy source code
 COPY src/ ./src/
 COPY migrations/ ./migrations/
 COPY seeds/ ./seeds/
 COPY knexfile.ts ./
 
 # Build TypeScript
-RUN npm run build
+RUN npm run build && npm run typecheck
 
 # Production stage
 FROM node:20-alpine AS production
 
+# Add security updates
+RUN apk update && apk upgrade && apk add --no-cache dumb-init
+
 WORKDIR /app
 
-# Install only production deps
-COPY package*.json ./
-RUN npm ci --omit=dev && npm cache clean --force
+# Create non-root user for security
+RUN addgroup -g 1001 -S nodejs && adduser -S nodejs -u 1001
 
-# Copy compiled code
+# Copy package files and install production dependencies only
+COPY package*.json ./
+RUN npm ci --omit=dev --no-audit --no-fund && npm cache clean --force
+
+# Copy built application
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/migrations ./migrations
 COPY --from=builder /app/seeds ./seeds
 COPY --from=builder /app/knexfile.ts ./
 
-# Create uploads directory
-RUN mkdir -p /app/uploads/attendance
+# Create required directories and set permissions
+RUN mkdir -p /app/uploads/attendance && \
+    chown -R nodejs:nodejs /app && \
+    chmod -R 755 /app/uploads
 
-# Non-root user for security
-RUN addgroup -g 1001 -S nodejs && adduser -S nodejs -u 1001
-RUN chown -R nodejs:nodejs /app/uploads
+# Switch to non-root user
 USER nodejs
 
+# Expose port
 EXPOSE 4000
 
 # Health check
-HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --retries=3 \
+HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
   CMD wget -qO- http://localhost:4000/health || exit 1
 
+# Use dumb-init to handle signals properly
+ENTRYPOINT ["dumb-init", "--"]
 CMD ["node", "dist/src/server.js"]
