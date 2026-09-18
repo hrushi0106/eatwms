@@ -203,12 +203,12 @@ export default function Chatbot() {
         </div>
 
         {/* Messages area */}
-        <div className="flex-1 overflow-y-auto bg-gray-50 px-4 py-3 space-y-3">
+        <div className="flex-1 overflow-y-auto bg-gray-50 dark:bg-gray-800 px-4 py-3 space-y-3 transition-colors">
           {messages.length === 0 && !isTyping && (
             <div className="flex flex-col items-center justify-center h-full gap-3 text-center">
               <Logo variant="icon" size="lg" className="w-14 h-14" />
-              <p className="text-sm font-medium text-gray-700">Hi, {user?.first_name}! 👋</p>
-              <p className="text-xs text-gray-400">Ask me about your attendance, tasks, leave balance, and more.</p>
+              <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Hi, {user?.first_name}! 👋</p>
+              <p className="text-xs text-gray-400 dark:text-gray-500">Ask me about your attendance, tasks, leave balance, and more.</p>
             </div>
           )}
 
@@ -218,19 +218,19 @@ export default function Chatbot() {
               className={`flex gap-2 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
             >
               {msg.role === 'bot' && (
-                <div className="w-7 h-7 rounded-full bg-white border border-indigo-100 flex items-center justify-center flex-shrink-0 mt-auto overflow-hidden shadow-sm">
-                  <img src="/logo-icon.svg" alt="Bot" className="w-5 h-5 object-contain" />
+                <div className="w-7 h-7 rounded-full bg-white dark:bg-gray-700 border border-indigo-100 dark:border-indigo-700 flex items-center justify-center flex-shrink-0 mt-auto overflow-hidden shadow-sm">
+                  <Logo variant="icon" size="sm" className="w-5 h-5" />
                 </div>
               )}
               <div
                 className={`max-w-[80%] rounded-2xl px-3.5 py-2.5 text-sm shadow-sm ${
                   msg.role === 'user'
                     ? 'bg-gradient-to-br from-indigo-500 to-purple-600 text-white rounded-br-sm'
-                    : 'bg-white text-gray-800 border border-gray-100 rounded-bl-sm'
+                    : 'bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 border border-gray-100 dark:border-gray-600 rounded-bl-sm'
                 }`}
               >
                 <RenderText text={msg.text} />
-                <p className={`text-[10px] mt-1 ${msg.role === 'user' ? 'text-white/50 text-right' : 'text-gray-400'}`}>
+                <p className={`text-[10px] mt-1 ${msg.role === 'user' ? 'text-white/50 text-right' : 'text-gray-400 dark:text-gray-500'}`}>
                   {formatTime(msg.timestamp)}
                 </p>
               </div>
@@ -245,8 +245,8 @@ export default function Chatbot() {
           {/* Typing indicator */}
           {isTyping && (
             <div className="flex gap-2 justify-start">
-              <div className="w-7 h-7 rounded-full bg-white border border-indigo-100 flex items-center justify-center flex-shrink-0 overflow-hidden shadow-sm">
-                <img src="/logo-icon.svg" alt="Bot" className="w-5 h-5 object-contain" />
+              <div className="w-7 h-7 rounded-full bg-white dark:bg-gray-700 border border-indigo-100 dark:border-indigo-700 flex items-center justify-center flex-shrink-0 overflow-hidden shadow-sm">
+                <Logo variant="icon" size="sm" className="w-5 h-5" />
               </div>
               <div className="bg-white border border-gray-100 rounded-2xl rounded-bl-sm px-4 py-3 shadow-sm">
                 <div className="flex gap-1 items-center h-4">
@@ -280,7 +280,7 @@ export default function Chatbot() {
         {/* Input area */}
         <form
           onSubmit={handleSubmit}
-          className="flex items-center gap-2 px-3 py-3 bg-white border-t border-gray-200 flex-shrink-0"
+          className="flex items-center gap-2 px-3 py-3 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 flex-shrink-0 transition-colors"
         >
           <input
             ref={inputRef}
@@ -290,7 +290,7 @@ export default function Chatbot() {
             placeholder="Ask something..."
             disabled={sending}
             maxLength={200}
-            className="flex-1 bg-gray-100 rounded-full px-4 py-2 text-sm text-gray-800 placeholder-gray-400 outline-none focus:ring-2 focus:ring-indigo-300 focus:bg-white transition-all disabled:opacity-50"
+            className="flex-1 bg-gray-100 dark:bg-gray-700 rounded-full px-4 py-2 text-sm text-gray-800 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500 outline-none focus:ring-2 focus:ring-indigo-300 dark:focus:ring-indigo-600 focus:bg-white dark:focus:bg-gray-600 transition-all disabled:opacity-50"
           />
           <button
             type="submit"

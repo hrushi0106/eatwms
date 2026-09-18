@@ -59,7 +59,7 @@ export default function NotificationsPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="page-title">Notifications</h1>
-          {unreadCount > 0 && <p className="text-sm text-gray-500 mt-0.5">{unreadCount} unread</p>}
+          {unreadCount > 0 && <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">{unreadCount} unread</p>}
         </div>
         {unreadCount > 0 && (
           <button onClick={handleMarkAllRead} className="btn-secondary text-sm flex items-center gap-2">
@@ -75,26 +75,26 @@ export default function NotificationsPage() {
         <EmptyState icon={<BellSlashIcon className="h-10 w-10 text-gray-300" />}
           title="No notifications" description="You're all caught up!" />
       ) : (
-        <div className="card divide-y divide-gray-100">
+        <div className="card divide-y divide-gray-100 dark:divide-gray-700">
           {notifications.map((n) => (
-            <div key={n.id} className={`flex gap-4 px-5 py-4 ${!n.is_read ? 'bg-blue-50/50' : 'hover:bg-gray-50'} transition-colors`}>
+            <div key={n.id} className={`flex gap-4 px-5 py-4 ${!n.is_read ? 'bg-blue-50/50 dark:bg-blue-900/20' : 'hover:bg-gray-50 dark:hover:bg-gray-700/50'} transition-colors`}>
               <div className="flex-shrink-0 mt-0.5 text-xl">{typeIcons[n.type] || '🔔'}</div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-start justify-between gap-3">
-                  <p className={`text-sm ${!n.is_read ? 'font-semibold text-gray-900' : 'font-medium text-gray-700'}`}>
+                  <p className={`text-sm ${!n.is_read ? 'font-semibold text-gray-900 dark:text-white' : 'font-medium text-gray-700 dark:text-gray-300'}`}>
                     {n.title}
                   </p>
-                  <span className="text-xs text-gray-400 whitespace-nowrap flex-shrink-0">{timeAgo(n.created_at)}</span>
+                  <span className="text-xs text-gray-400 dark:text-gray-500 whitespace-nowrap flex-shrink-0">{timeAgo(n.created_at)}</span>
                 </div>
-                <p className="text-sm text-gray-600 mt-0.5">{n.message}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mt-0.5">{n.message}</p>
               </div>
               <div className="flex items-center gap-1 flex-shrink-0">
                 {!n.is_read && (
                   <button onClick={() => handleMarkRead(n.id)}
-                    className="w-2 h-2 rounded-full bg-blue-500 flex-shrink-0" title="Mark as read" />
+                    className="w-2 h-2 rounded-full bg-blue-500 dark:bg-blue-400 flex-shrink-0" title="Mark as read" />
                 )}
                 <button onClick={() => handleDelete(n.id)}
-                  className="p-1 text-gray-300 hover:text-gray-500 text-xs" title="Delete">✕</button>
+                  className="p-1 text-gray-300 dark:text-gray-600 hover:text-gray-500 dark:hover:text-gray-400 text-xs" title="Delete">✕</button>
               </div>
             </div>
           ))}

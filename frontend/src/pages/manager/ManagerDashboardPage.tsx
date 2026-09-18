@@ -77,11 +77,11 @@ export default function ManagerDashboardPage() {
 
       {/* Team attendance table */}
       <div className="table-container">
-        <div className="px-6 py-4 border-b border-gray-100">
+        <div className="px-6 py-4 border-b border-gray-100 dark:border-gray-700">
           <h2 className="section-title">Today's Team Attendance</h2>
         </div>
         {data.team_attendance.length === 0 ? (
-          <div className="py-12 text-center text-gray-400 text-sm">No team members found</div>
+          <div className="py-12 text-center text-gray-400 dark:text-gray-500 text-sm">No team members found</div>
         ) : (
           <table className="table">
             <thead>
@@ -99,16 +99,16 @@ export default function ManagerDashboardPage() {
                 <tr key={row.user_id}>
                   <td>
                     <div>
-                      <p className="font-medium text-sm">{row.employee_name}</p>
-                      <p className="text-xs text-gray-400">{row.employee_code}</p>
+                      <p className="font-medium text-sm text-gray-900 dark:text-white">{row.employee_name}</p>
+                      <p className="text-xs text-gray-400 dark:text-gray-500">{row.employee_code}</p>
                     </div>
                   </td>
                   <td>
-                    {row.work_mode ? <WorkModeBadge mode={row.work_mode} /> : <span className="text-gray-400 text-xs">—</span>}
+                    {row.work_mode ? <WorkModeBadge mode={row.work_mode} /> : <span className="text-gray-400 dark:text-gray-500 text-xs">—</span>}
                   </td>
-                  <td className="text-sm">{row.check_in_time ? formatTime(row.check_in_time) : <span className="text-gray-400">—</span>}</td>
-                  <td className="text-sm">{row.check_out_time ? formatTime(row.check_out_time) : <span className="text-gray-400">—</span>}</td>
-                  <td className="text-sm font-medium text-green-700">
+                  <td className="text-sm text-gray-700 dark:text-gray-300">{row.check_in_time ? formatTime(row.check_in_time) : <span className="text-gray-400 dark:text-gray-500">—</span>}</td>
+                  <td className="text-sm text-gray-700 dark:text-gray-300">{row.check_out_time ? formatTime(row.check_out_time) : <span className="text-gray-400 dark:text-gray-500">—</span>}</td>
+                  <td className="text-sm font-medium text-green-700 dark:text-green-400">
                     {row.total_work_minutes ? formatMinutes(row.total_work_minutes) : '—'}
                   </td>
                   <td>

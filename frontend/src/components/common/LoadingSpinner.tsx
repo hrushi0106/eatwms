@@ -20,13 +20,13 @@ export default function LoadingSpinner({ fullPage = false, size = 'md', text }: 
         role="status"
         aria-label="Loading"
       />
-      {text && <p className="text-sm text-gray-500">{text}</p>}
+      {text && <p className="text-sm text-gray-500 dark:text-gray-400">{text}</p>}
     </div>
   );
 
   if (fullPage) {
     return (
-      <div className="fixed inset-0 flex items-center justify-center bg-white z-50">
+      <div className="fixed inset-0 flex items-center justify-center bg-white dark:bg-gray-900 z-50 transition-colors">
         {spinner}
       </div>
     );
