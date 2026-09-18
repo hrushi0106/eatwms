@@ -6,18 +6,21 @@ dotenv.config({ path: path.resolve(__dirname, '.env') });
 
 const config: { [key: string]: Knex.Config } = {
   development: {
-    client: process.env.DB_CLIENT || 'sqlite3',
-    connection: process.env.DB_CLIENT === 'postgresql' ? {
+    client: 'postgresql',
+    connection: process.env.DATABASE_URL || {
       host: process.env.DB_HOST || 'localhost',
       port: parseInt(process.env.DB_PORT || '5432'),
       database: process.env.DB_NAME || 'eatwms',
       user: process.env.DB_USER || 'eatwms_user',
       password: process.env.DB_PASSWORD || 'password',
-    } : {
-      filename: './dev_database.sqlite3'
+      ssl: process.env.DATABASE_URL ? { rejectUnauthorized: false } : false,
     },
-    useNullAsDefault: true, // Required for SQLite
-    pool: { min: 2, max: 10 },
+    pool: { 
+      min: 0,
+      max: 10,
+      idleTimeoutMillis: 30000,
+      acquireTimeoutMillis: 60000,
+    },
     migrations: {
       directory: './migrations',
       extension: 'ts',
