@@ -1,5 +1,25 @@
 # 🚀 Render Deployment Guide for EATWMS
 
+## Prerequisites: Network Configuration
+
+### Neon Database IP Whitelisting (Important!)
+
+Before deploying, ensure Render can access your Neon database:
+
+1. **Go to [Neon Console](https://console.neon.tech)**
+2. **Select your project: `neondb`**
+3. **Navigate to Settings → IP Allow**  
+4. **Add these Render IP ranges:**
+   ```
+   74.220.52.0/24
+   74.220.60.0/24
+   ```
+5. **Save the configuration**
+
+Without this step, your backend won't be able to connect to the database!
+
+---
+
 ## Step 1: Deploy Backend Service
 
 1. **Go to [Render Dashboard](https://dashboard.render.com)**
@@ -35,6 +55,7 @@
    RATE_LIMIT_WINDOW_MS=900000
    RATE_LIMIT_MAX=100
    LOGIN_RATE_LIMIT_MAX=10
+   RENDER_IP_RANGES=74.220.52.0/24,74.220.60.0/24
    ```
 
 6. **Click "Create Web Service"**
