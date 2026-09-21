@@ -30,12 +30,18 @@ Without this step, your backend won't be able to connect to the database!
 
 4. **Configure Service Settings:**
    ```
-   Name: eatwms-backend
+   Name: eatwms-backend (or keep eatwms-1 if already created)
    Region: Oregon (US West)
    Branch: main
    Root Directory: backend
    Runtime: Node
    Build Command: npm install && npm run build
+   Start Command: ./start.sh
+   Node Version: 18 (or latest)
+   ```
+
+   **Alternative Start Commands (if shell script doesn't work):**
+   ```
    Start Command: npm run migrate:prod && npm run seed:prod && npm start
    ```
 
@@ -106,6 +112,8 @@ Without this step, your backend won't be able to connect to the database!
 ## Troubleshooting
 
 **If Backend Build Fails:**
+- **Docker Error**: Ensure Runtime is set to "Node", not "Docker"
+- **Dockerfile Error**: If you see "failed to read dockerfile", change Runtime to Node
 - Check build logs for specific errors
 - Ensure all dependencies are in package.json
 - Verify TypeScript compiles without errors
