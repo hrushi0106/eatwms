@@ -63,7 +63,14 @@ app.use(
 // CORS
 app.use(
   cors({
-    origin: env.FRONTEND_URL,
+    origin: [
+      env.FRONTEND_URL,
+      'http://localhost:3000',
+      'https://grove-headfirst-handful.ngrok-free.dev',
+      /\.ngrok-free\.dev$/,
+      /\.ngrok\.app$/,
+      /\.ngrok\.io$/
+    ],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
@@ -120,6 +127,25 @@ app.get('/health/db', async (_req, res) => {
 
 // API Routes
 const apiRouter = express.Router();
+
+// Root endpoint for ngrok/public access
+app.get('/', (_req, res) => {
+  res.json({
+    success: true,
+    message: 'EvoluXion EATWMS API Server',
+    data: {
+      name: 'Employee Attendance, Timesheet & Work Monitoring System',
+      version: '1.0.0',
+      environment: env.NODE_ENV,
+      status: 'running',
+      endpoints: {
+        health: '/health',
+        api: '/api',
+        documentation: '/api-docs'
+      }
+    },
+  });
+});
 
 apiRouter.use('/auth', authRoutes);
 apiRouter.use('/users', userRoutes);
