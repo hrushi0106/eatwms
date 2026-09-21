@@ -280,15 +280,6 @@ export default function LoginPage() {
       {/* Right Side - Dashboard Preview */}
       <div className="hidden xl:flex flex-col justify-center w-2/5 p-12 relative z-10">
         <div className="relative">
-          {/* Track, Manage, Grow text */}
-          <div className="absolute -top-20 right-0 text-right">
-            <div className="space-y-1 text-slate-400 text-sm font-medium">
-              <div>Track</div>
-              <div>Manage</div>
-              <div>Grow</div>
-            </div>
-          </div>
-
           {/* Dashboard Preview */}
           <div className="bg-slate-800/30 backdrop-blur-sm rounded-2xl p-6 border border-slate-700/30">
             {/* Header */}
@@ -364,13 +355,6 @@ export default function LoginPage() {
                 <span>Sun</span>
               </div>
             </div>
-          </div>
-
-          {/* Bottom Text */}
-          <div className="absolute -bottom-16 left-0 space-y-1 text-slate-500 text-xs font-medium tracking-wider">
-            <div>PEOPLE</div>
-            <div>PRODUCTIVITY</div>
-            <div>PROGRESS</div>
           </div>
         </div>
       </div>
