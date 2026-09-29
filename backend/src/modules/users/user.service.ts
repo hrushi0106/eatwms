@@ -93,8 +93,11 @@ export async function createUser(data: Record<string, unknown>, req: Request, cr
 
   const hash = await bcrypt.hash(data.password as string, env.BCRYPT_ROUNDS);
 
+  // Remove password from data and use password_hash instead
+  const { password, ...userDataWithoutPassword } = data;
+
   const [id] = await db('users').insert({
-    ...data,
+    ...userDataWithoutPassword,
     email: (data.email as string).toLowerCase().trim(),
     employee_code,
     password_hash: hash,

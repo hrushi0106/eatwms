@@ -16,7 +16,7 @@ const EmployeeDashboardPage = lazy(() => import('./pages/employee/DashboardPage'
 const CheckInPage = lazy(() => import('./pages/attendance/CheckInPage'));
 const CheckOutPage = lazy(() => import('./pages/attendance/CheckOutPage'));
 const AttendanceHistoryPage = lazy(() => import('./pages/attendance/AttendanceHistoryPage'));
-const TimesheetListPage = lazy(() => import('./pages/timesheet/TimesheetListPage'));
+const TimesheetDashboard = lazy(() => import('./pages/timesheet/TimesheetDashboard'));
 const TimesheetFormPage = lazy(() => import('./pages/timesheet/TimesheetFormPage'));
 const ProjectsPage = lazy(() => import('./pages/projects/ProjectsPage'));
 const TasksPage = lazy(() => import('./pages/tasks/TasksPage'));
@@ -63,7 +63,7 @@ function App() {
               <Route path="/attendance/check-in" element={<CheckInPage />} />
               <Route path="/attendance/check-out" element={<CheckOutPage />} />
               <Route path="/attendance/history" element={<AttendanceHistoryPage />} />
-              <Route path="/timesheet" element={<TimesheetListPage />} />
+              <Route path="/timesheet" element={<TimesheetDashboard />} />
               <Route path="/timesheet/new" element={<TimesheetFormPage />} />
               <Route path="/timesheet/:id/edit" element={<TimesheetFormPage />} />
               <Route path="/projects" element={<ProjectsPage />} />
