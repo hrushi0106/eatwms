@@ -18,6 +18,7 @@ const CheckOutPage = lazy(() => import('./pages/attendance/CheckOutPage'));
 const AttendanceHistoryPage = lazy(() => import('./pages/attendance/AttendanceHistoryPage'));
 const TimesheetDashboard = lazy(() => import('./pages/timesheet/TimesheetDashboard'));
 const TimesheetFormPage = lazy(() => import('./pages/timesheet/TimesheetFormPage'));
+const ManagerTimesheetDashboard = lazy(() => import('./components/timesheet/ManagerTimesheetDashboard'));
 const ProjectsPage = lazy(() => import('./pages/projects/ProjectsPage'));
 const TasksPage = lazy(() => import('./pages/tasks/TasksPage'));
 const TaskDetailPage = lazy(() => import('./pages/tasks/TaskDetailPage'));
@@ -66,6 +67,14 @@ function App() {
               <Route path="/timesheet" element={<TimesheetDashboard />} />
               <Route path="/timesheet/new" element={<TimesheetFormPage />} />
               <Route path="/timesheet/:id/edit" element={<TimesheetFormPage />} />
+              <Route
+                path="/timesheet/manager"
+                element={
+                  <ProtectedRoute roles={['TEAM_LEAD', 'MANAGER', 'ADMIN']}>
+                    <ManagerTimesheetDashboard />
+                  </ProtectedRoute>
+                }
+              />
               <Route path="/projects" element={<ProjectsPage />} />
               <Route path="/tasks" element={<TasksPage />} />
               <Route path="/tasks/:id" element={<TaskDetailPage />} />

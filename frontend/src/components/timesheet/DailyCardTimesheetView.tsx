@@ -14,7 +14,7 @@ import { Timesheet, Project, Task } from '../../types';
 import { useAuth } from '../../contexts/AuthContext';
 import toast from 'react-hot-toast';
 import LoadingSpinner from '../common/LoadingSpinner';
-import DailyCardAddModal from './DailyCardAddModal';
+import TimesheetEntryForm from './TimesheetEntryForm';
 import DailyCardEditModal from './DailyCardEditModal';
 
 interface DailyCardTimesheetViewProps {
@@ -43,6 +43,7 @@ const DailyCardTimesheetView: React.FC<DailyCardTimesheetViewProps> = ({
   const [currentWeek, setCurrentWeek] = useState(selectedDate);
   const [timesheets, setTimesheets] = useState<Timesheet[]>([]);
   const [projects, setProjects] = useState<Project[]>([]);
+  const [tasks, setTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState(true);
   const [showAddModal, setShowAddModal] = useState(false);
   const [selectedDayDate, setSelectedDayDate] = useState<string | null>(null);
@@ -60,7 +61,7 @@ const DailyCardTimesheetView: React.FC<DailyCardTimesheetViewProps> = ({
     console.log('Fetching timesheet data for week:', { weekStart: format(weekStart, 'yyyy-MM-dd'), weekEnd: format(weekEnd, 'yyyy-MM-dd') });
     setLoading(true);
     try {
-      const [timesheetsRes, projectsRes] = await Promise.all([
+      const [timesheetsRes, projectsRes, tasksRes] = await Promise.all([
         api.get('/timesheets', {
           params: {
             start_date: format(weekStart, 'yyyy-MM-dd'),
@@ -68,7 +69,8 @@ const DailyCardTimesheetView: React.FC<DailyCardTimesheetViewProps> = ({
             limit: 100
           }
         }),
-        api.get('/projects')
+        api.get('/projects'),
+        api.get('/tasks', { params: { limit: 500 } })
       ]);
 
       console.log('Received timesheets:', timesheetsRes.data.data);
@@ -77,6 +79,7 @@ const DailyCardTimesheetView: React.FC<DailyCardTimesheetViewProps> = ({
       
       setTimesheets(timesheetsRes.data.data || []);
       setProjects(projectsRes.data.data || []);
+      setTasks(tasksRes.data.data || []);
     } catch (error) {
       console.error('Failed to fetch data:', error);
       toast.error('Failed to load timesheet data');
@@ -262,28 +265,7 @@ const DailyCardTimesheetView: React.FC<DailyCardTimesheetViewProps> = ({
           </div>
         )}
         
-        {/* Enhanced Debug Info */}
-        <div className="col-span-7 bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-          <div className="text-sm space-y-2">
-            <div className="font-bold text-blue-800">🐛 Debug Information:</div>
-            <div>Total timesheets loaded: <span className="font-semibold">{timesheets.length}</span></div>
-            <div>Projects loaded: <span className="font-semibold">{projects.length}</span></div>
-            <div>Week range: <span className="font-semibold">{format(weekStart, 'yyyy-MM-dd')} to {format(weekEnd, 'yyyy-MM-dd')}</span></div>
-            <div>Loading state: <span className="font-semibold">{loading ? 'Loading...' : 'Loaded'}</span></div>
-            {timesheets.length > 0 && (
-              <div>
-                <div className="font-medium">Recent timesheets:</div>
-                <div className="ml-4 space-y-1">
-                  {timesheets.slice(0, 3).map(ts => (
-                    <div key={ts.id} className="text-xs">
-                      📅 {ts.date} - {ts.project_name} - {ts.hours}h ({ts.status})
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
+
         
         {weekDays.map((day) => {
           const dayData = getDayData(day);
@@ -322,7 +304,7 @@ const DailyCardTimesheetView: React.FC<DailyCardTimesheetViewProps> = ({
 
       {/* Modals */}
       {showAddModal && (
-        <DailyCardAddModal
+        <TimesheetEntryForm
           isOpen={showAddModal}
           onClose={() => {
             setShowAddModal(false);
@@ -331,6 +313,9 @@ const DailyCardTimesheetView: React.FC<DailyCardTimesheetViewProps> = ({
           onSave={onTimesheetSaved}
           selectedDate={selectedDayDate}
           projects={projects}
+          tasks={tasks}
+          editingTimesheet={null}
+          mode="create"
         />
       )}
 

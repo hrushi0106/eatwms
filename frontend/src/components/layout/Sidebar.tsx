@@ -33,6 +33,7 @@ const employeeNav: NavItem[] = [
 const managerNav: NavItem[] = [
   { label: 'Dashboard', path: '/manager/dashboard', icon: HomeIcon },
   { label: 'Team Attendance', path: '/team/attendance', icon: UsersIcon },
+  { label: 'Team Timesheets', path: '/timesheet/manager', icon: ClipboardDocumentListIcon },
   { label: 'Leave Approvals', path: '/leave/approvals', icon: CalendarDaysIcon },
   { label: 'Exceptions', path: '/exceptions', icon: ExclamationTriangleIcon },
   { label: 'Reports', path: '/reports', icon: DocumentChartBarIcon },
@@ -44,6 +45,7 @@ const managerNav: NavItem[] = [
 const teamLeadNav: NavItem[] = [
   { label: 'Dashboard', path: '/teamlead/dashboard', icon: HomeIcon },
   { label: 'Team Attendance', path: '/team/attendance', icon: UsersIcon },
+  { label: 'Team Timesheets', path: '/timesheet/manager', icon: ClipboardDocumentListIcon },
   { label: 'Leave Approvals', path: '/leave/approvals', icon: CalendarDaysIcon },
   { label: 'Exceptions', path: '/exceptions', icon: ExclamationTriangleIcon },
   { label: 'My Timesheet', path: '/timesheet', icon: DocumentTextIcon },
@@ -58,6 +60,7 @@ const adminNav: NavItem[] = [
   { label: 'Departments', path: '/admin/departments', icon: BuildingOfficeIcon },
   { label: 'Projects', path: '/admin/projects', icon: FolderIcon },
   { label: 'Team Attendance', path: '/team/attendance', icon: ClockIcon },
+  { label: 'Team Timesheets', path: '/timesheet/manager', icon: DocumentTextIcon },
   { label: 'Leave Approvals', path: '/leave/approvals', icon: CalendarDaysIcon },
   { label: 'Exceptions', path: '/exceptions', icon: ExclamationTriangleIcon },
   { label: 'Reports', path: '/reports', icon: DocumentChartBarIcon },
