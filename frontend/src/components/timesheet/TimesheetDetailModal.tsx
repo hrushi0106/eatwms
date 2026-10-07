@@ -12,7 +12,7 @@ import {
   CurrencyDollarIcon,
 } from '@heroicons/react/24/outline';
 import { Timesheet } from '../../types';
-import { api } from '../../services/api';
+import api from '../../api/axios';
 import toast from 'react-hot-toast';
 import { TimesheetStatusBadge } from '../common/Badge';
 

@@ -17,7 +17,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { Timesheet, User } from '../../types';
 import { useAuth } from '../../contexts/AuthContext';
-import { api } from '../../services/api';
+import api from '../../api/axios';
 import toast from 'react-hot-toast';
 import { TimesheetStatusBadge } from '../common/Badge';
 import LoadingSpinner from '../common/LoadingSpinner';
